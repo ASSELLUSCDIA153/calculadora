@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora Web </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      background: #eef2f3;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .calculator {
+      background: #fff;
+      padding: 30px 20px 20px 20px;
+      border-radius: 18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.16);
+      max-width: 340px;
+      width: 100%;
+    }
+    .display {
+      width: 100%;
+      background: #f5f7fa;
+      border: none;
+      border-radius: 10px;
+      font-size: 2em;
+      text-align: right;
+      padding: 16px 10px;
+      margin-bottom: 18px;
+      box-sizing: border-box;
+      color: #232323;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .buttons button {
+      background: #e0e4ea;
+      border: none;
+      border-radius: 10px;
+      padding: 18px;
+      font-size: 1.2em;
+      color: #232323;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .buttons button.operator {
+      background: #b7e0fa;
+      color: #0477bf;
+      font-weight: bold;
+    }
+    .buttons button.equal {
+      background: #55d187;
+      color: white;
+      grid-column: span 2;
+      font-weight: bold;
+    }
+    .buttons button:active {
+      background: #a7bbc7;
+    }
+    .buttons button.clear {
+      background: #f87171;
+      color: #fff;
+    }
+    @media (max-width: 400px) {
+      .calculator {
+        padding: 10px;
+      }
+      .display {
+        font-size: 1.2em;
+        padding: 10px 5px;
+      }
+      .buttons button {
+        padding: 10px;
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" class="display" id="display" readonly>
+    <div class="buttons">
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button class="operator" onclick="append('/')">÷</button>
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button class="operator" onclick="append('*')">×</button>
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button class="operator" onclick="append('-')">−</button>
+      <button onclick="append('0')">0</button>
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button class="equal" onclick="calculate()">=</button>
+      <button class="operator" onclick="append('+')">+</button>
+    </div>
+  </div>
+  <script>
+    const display = document.getElementById('display');
+
+    function append(char) {
+      display.value += char;
+    }
+
+    function clearDisplay() {
+      display.value = '';
+    }
+
+    function calculate() {
+      try {
+        // Evalúa la expresión pero solo permite números y operadores seguros
+        if (/^[0-9+\-*/. ]+$/.test(display.value)) {
+          display.value = eval(display.value.replace(/÷/g, '/').replace(/×/g, '*'));
+        } else {
+          display.value = 'Error';
+        }
+      } catch {
+        display.value = 'Error';
+      }
+    }
+  </script>
+</body>
+</html>

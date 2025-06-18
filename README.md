@@ -1,2 +1,2 @@
 # la-calculadora
-calcuuladora funcional
+calculadora funcional
